@@ -63,6 +63,12 @@ npx tsc --noEmit # standalone typecheck — only accurate right after a `next bu
   older shadcn muscle memory but fails to typecheck here. Use
   `<Button render={<Link href="/x" />}>text</Button>`. When the render target isn't a real
   `<button>` (a `Link`/`<a>`), also pass `nativeButton={false}` or Base UI logs a dev warning.
+- **`DropdownMenuLabel` needs a `DropdownMenuGroup` wrapper.** It renders Base UI's
+  `Menu.GroupLabel`, which throws "MenuGroupContext is missing" at runtime (not a typecheck
+  error — it crashes the page on click) unless it's inside a `<DropdownMenuGroup>`. This bit us in
+  `src/components/navbar.tsx`'s account menu. Also: a `DropdownMenuItem` rendered as a real
+  `<button>` (e.g. the sign-out form button) needs `nativeButton` set explicitly — `MenuItem`
+  defaults it to `false`, the opposite of `Button`'s default of `true`.
 - **RadioGroup must be controlled from the first render.** Passing `value={undefined}` until
   something is selected trips Base UI's uncontrolled→controlled warning. Default to `""`, not
   `undefined` (see `src/components/quiz-form.tsx`).
