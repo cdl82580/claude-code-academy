@@ -25,7 +25,34 @@ export const module07: CourseModule = {
     {
       heading: "CI/CD integration",
       body: [
-        "Running Claude Code non-interactively as part of CI/CD means the same agentic capabilities — reading code, running commands, evaluating output — can execute automatically on triggers like a pull request being opened, without a human driving each step. Common patterns include an automated review comment on new PRs, or a check that runs a broader analysis than your standard linter.",
+        "Running Claude Code non-interactively as part of CI/CD means the same agentic capabilities — reading code, running commands, evaluating output — can execute automatically on triggers like a pull request being opened, without a human driving each step. Common patterns include an automated review comment on new PRs, or a check that runs a broader analysis than your standard linter. Even a plain test-on-push workflow is the foundation this builds on:",
+      ],
+      examples: [
+        {
+          label: ".github/workflows/ci.yml",
+          code: `name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm test`,
+        },
+      ],
+    },
+    {
+      heading: "Scoping CI's permissions",
+      body: [
         "Because CI runs are unattended, they need tighter, more explicit permission boundaries than an interactive session — an unattended agent should never have a wider blast radius than a human would be comfortable granting without watching. Treat CI credentials and scopes the same way you'd treat any other automation's access: least privilege, and auditable.",
         "Output from automated runs should be reviewable after the fact — logged, or posted somewhere a human sees it — so a bad automated judgment gets caught by the team, not silently trusted.",
       ],
@@ -34,7 +61,24 @@ export const module07: CourseModule = {
       heading: "Security review passes",
       body: [
         "A dedicated security-focused pass — separate from a general code review — looks specifically for the categories that general review often glosses over: injection risks, authentication and authorization gaps, secrets in code or logs, unsafe deserialization, and missing input validation at trust boundaries.",
-        "Claude Code can run this kind of pass by being pointed at it explicitly: ask for a review scoped to security concerns rather than general code quality, and give it the same specificity you'd want from a human security reviewer — which trust boundaries matter, what data is sensitive, what the threat model looks like for this specific change.",
+        "Claude Code can run this kind of pass by being pointed at it explicitly: ask for a review scoped to security concerns rather than general code quality, and give it the same specificity you'd want from a human security reviewer — which trust boundaries matter, what data is sensitive, what the threat model looks like for this specific change. Turning that into a standing slash command (see Module 4) means every reviewer runs the same pass:",
+      ],
+      examples: [
+        {
+          label: ".claude/commands/security-review.md",
+          code: `Review this diff for:
+- Injection risks (SQL, command, template)
+- Missing authentication or authorization checks
+- Secrets committed in code or logs
+- Missing input validation at trust boundaries
+
+Flag anything uncertain rather than assuming it's fine.`,
+        },
+      ],
+    },
+    {
+      heading: "Treating findings as a worklist",
+      body: [
         "Findings from an automated security pass still need a human decision: which findings are real, which are false positives, and which are real but acceptable given context the review pass didn't have. Treat it as generating a worklist, not a verdict.",
       ],
     },

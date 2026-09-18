@@ -17,14 +17,45 @@ export const module05: CourseModule = {
       heading: "Test-driven loops: write tests, let Claude implement",
       body: [
         "A test-driven loop inverts the usual order: you (or Claude, under your review) write the test first, describing the behavior you want as an executable specification, and only then does implementation happen against that target. This works especially well with an agentic tool, because the test gives Claude Code an objective, checkable definition of done instead of only a prose description.",
-        "A practical pattern: ask Claude to write a failing test that captures the desired behavior, confirm the test actually fails for the right reason (not a typo or setup error), then ask it to implement until that test — and the rest of the suite — passes.",
+        "A practical pattern: ask Claude to write a failing test that captures the desired behavior, confirm the test actually fails for the right reason (not a typo or setup error), then ask it to implement until that test — and the rest of the suite — passes. A test written before the implementation exists is a real file, not a hypothetical:",
+      ],
+      examples: [
+        {
+          label: "tests/discount.test.js",
+          code: `const { applyDiscount } = require("../src/discount");
+
+test("applies a 10% discount", () => {
+  expect(applyDiscount(100, 0.1)).toBe(90);
+});
+
+// src/discount.js doesn't exist yet — this test is the spec.`,
+        },
+      ],
+    },
+    {
+      heading: "Checking a test before trusting it",
+      body: [
         "Resist the temptation to let Claude write both the test and the implementation without you checking the test first. A test that's subtly wrong (asserting the wrong thing, or trivially always passing) gives you false confidence no matter how correct the implementation looks.",
       ],
     },
     {
       heading: "Debugging: reproduce → isolate → fix",
       body: [
-        "Reproduce first: before proposing any fix, confirm you can reliably trigger the bug — running the exact failing case, capturing the exact error. A fix aimed at a bug you haven't actually reproduced is a guess wearing a diff's clothing.",
+        "Reproduce first: before proposing any fix, confirm you can reliably trigger the bug — running the exact failing case, capturing the exact error. A fix aimed at a bug you haven't actually reproduced is a guess wearing a diff's clothing. For an API, that reproduction is often just a couple of real requests:",
+      ],
+      examples: [
+        {
+          label: "Reproducing with curl",
+          code: `curl -X POST localhost:3000/notes -H "Content-Type: application/json" -d '{"text":"test"}'
+curl -X DELETE localhost:3000/notes/1
+curl localhost:3000/notes
+# expected: [] — but the note from step 1 is still there`,
+        },
+      ],
+    },
+    {
+      heading: "Isolating and fixing",
+      body: [
         "Isolate second: narrow down where the failure originates — which function, which input, which layer of the stack — before touching code. This is where reading logs, adding a temporary debug statement, or bisecting between a known-good and known-bad state pays off.",
         "Fix last: once the cause is actually located, the fix itself is often small. Ask Claude Code to explain why the bug happened, not just what changed — an explanation you don't understand is a fix you can't fully trust, and it's a sign the isolation step wasn't as complete as it seemed.",
       ],

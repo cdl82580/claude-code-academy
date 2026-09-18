@@ -18,7 +18,13 @@ export const module06: CourseModule = {
       body: [
         "A refactor that touches dozens of files is really a sequencing problem more than a coding problem. Start by asking Claude Code to find every affected location (a search/read pass) before any edits happen, so you both have an accurate map of the blast radius rather than discovering scope mid-change.",
         "Break the refactor into independently reviewable chunks where possible — by directory, by module, or by pattern — rather than one enormous diff. Smaller, coherent chunks are easier to verify, easier to revert individually if one chunk goes wrong, and easier to land incrementally if the codebase is under active development elsewhere.",
-        "For mechanical renames or pattern replacements, be explicit about the exact pattern and its exceptions ('rename this function everywhere except in the legacy/ directory, which is being deprecated separately') — mechanical work benefits from precise direction more than open-ended planning.",
+        "For mechanical renames or pattern replacements, be explicit about the exact pattern and its exceptions — mechanical work benefits from precise direction more than open-ended planning:",
+      ],
+      examples: [
+        {
+          label: "Scoped refactor prompt",
+          code: "Rename formatDate to formatDateTime everywhere it's used, except in src/legacy/ which is being deprecated separately. Show me the full list of affected files before making any changes.",
+        },
       ],
     },
     {
@@ -33,7 +39,21 @@ export const module06: CourseModule = {
       heading: "Managing context limits on big codebases",
       body: [
         "No session holds an entire large codebase in view at once — Claude Code reads what's relevant on demand rather than the whole repository up front, so how you scope a task determines how well it can reason about it. For big tasks, point directly at the relevant directories or files rather than relying on a broad, unscoped search to find them.",
-        "Long sessions accumulate context, and old context can crowd out room for new information or become less relevant as the task evolves. For a large, multi-day effort, it often helps to periodically summarize progress (what's done, what's left, key decisions made) and start a fresher session from that summary rather than one continuously growing conversation.",
+        "Long sessions accumulate context, and old context can crowd out room for new information or become less relevant as the task evolves. For a large, multi-day effort, it often helps to periodically summarize progress and start a fresher session from that summary rather than one continuously growing conversation:",
+      ],
+      examples: [
+        {
+          label: "Session handoff summary",
+          code: `Progress so far:
+- Migrated src/api/users.js and src/api/orders.js to the new client
+- Still need: src/api/payments.js, src/api/webhooks.js
+- Decision: keeping the old retry wrapper, don't reintroduce it`,
+        },
+      ],
+    },
+    {
+      heading: "Letting CLAUDE.md do some of the work",
+      body: [
         "CLAUDE.md pulls its weight here too: a good architecture overview means Claude Code needs to discover less from scratch every session, which effectively stretches how far a limited context window goes on a large project.",
       ],
     },

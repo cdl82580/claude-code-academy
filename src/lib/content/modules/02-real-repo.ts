@@ -27,7 +27,26 @@ export const module02: CourseModule = {
       body: [
         "A CLAUDE.md file at your project root is context Claude Code loads automatically every session in that directory tree — so instead of re-explaining your build command, folder layout, or coding conventions every time, you write it once. Good CLAUDE.md content includes: the commands to build/test/lint, a short architecture overview, naming and style conventions, and anything you're tired of repeating.",
         "Keep it living, not exhaustive. A CLAUDE.md that tries to document every file becomes stale and gets ignored; a CLAUDE.md that captures the handful of things a new contributor would ask on day one earns its keep. Update it when you notice yourself explaining the same thing twice in a session.",
-        "This is committed to the repo (it's for the whole team), which is different from the personal, global CLAUDE.md you'll build in Module 2.5 — the two layer together rather than compete.",
+        "This is committed to the repo (it's for the whole team), which is different from the personal, global CLAUDE.md you'll build in Module 2.5 — the two layer together rather than compete. A short, real one might look like this:",
+      ],
+      examples: [
+        {
+          label: "CLAUDE.md",
+          code: `# CLAUDE.md
+
+## Commands
+- \`npm run dev\` — start the dev server
+- \`npm test\` — run the test suite
+- \`npm run lint\` — run eslint
+
+## Architecture
+Next.js App Router app. Pages live in \`src/app\`, shared UI in
+\`src/components\`, data access in \`src/lib\`.
+
+## Conventions
+- Prefer server components; only add "use client" where interactivity requires it.
+- Validate all form input with zod before it reaches a server action.`,
+        },
       ],
     },
     {

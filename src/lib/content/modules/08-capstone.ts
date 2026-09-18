@@ -33,7 +33,30 @@ export const module08: CourseModule = {
     {
       heading: "What 'done' looks like",
       body: [
-        "A finished capstone has evidence at each lifecycle stage: a plan you can point to, working code, a real test run (not just 'it looked right'), at least one genuine debugging story (even a small one), and documentation someone unfamiliar with the project could use to get oriented. It doesn't need to be large — it needs to be complete across all five stages.",
+        "A finished capstone has evidence at each lifecycle stage: a plan you can point to, working code, a real test run (not just 'it looked right'), at least one genuine debugging story (even a small one), and documentation someone unfamiliar with the project could use to get oriented. It doesn't need to be large — it needs to be complete across all five stages. That documentation bar is lower than it sounds — it just has to be real:",
+      ],
+      examples: [
+        {
+          label: "README.md",
+          code: `# Project Name
+
+One paragraph: what this does and why.
+
+## Run it
+npm install
+npm start
+
+## Architecture
+Brief overview of the main pieces and how they fit together.
+
+## Known limitations
+Anything intentionally left out of scope.`,
+        },
+      ],
+    },
+    {
+      heading: "Revisiting your developer profile",
+      body: [
         "This is also a good moment to revisit your ~/.claude/CLAUDE.md developer profile from Module 2.5: did anything about how you like to work change over the course? A capstone is a natural checkpoint for updating it.",
       ],
     },

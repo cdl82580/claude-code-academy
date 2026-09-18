@@ -27,7 +27,35 @@ export const module025: CourseModule = {
       body: [
         "A useful ~/.claude/CLAUDE.md profile typically covers five things. About me: preferred languages/stacks, your experience level, and things you don't want re-explained. Workflow preferences: concrete defaults like 'always use bun, not npm' or 'run tests before suggesting a commit.' Communication style: how verbose you want explanations, and whether you prefer a menu of options or a straight recommendation. Common commands/aliases: shortcuts that show up across most of your repos — linters, test runners, deploy scripts. Debugging habits: how you want errors diagnosed, e.g. reproduce first, then isolate.",
         "Write it like you're briefing a new collaborator who will work with you across many different projects, not one specific codebase. The value compounds: every new project starts with your baseline already in place.",
-        "Revisit it occasionally. As your preferences change — a new default stack, a new debugging habit that's worked well — update the one file rather than letting a stale preference quietly apply everywhere.",
+        "Revisit it occasionally. As your preferences change — a new default stack, a new debugging habit that's worked well — update the one file rather than letting a stale preference quietly apply everywhere. A real one might look like this:",
+      ],
+      examples: [
+        {
+          label: "~/.claude/CLAUDE.md",
+          code: `# ~/.claude/CLAUDE.md
+
+## About me
+Senior backend engineer, most comfortable in Python and Go. Don't
+re-explain basic language syntax — do explain framework-specific
+conventions I might not know yet.
+
+## Workflow preferences
+- Always use pnpm, never npm or yarn.
+- Run the test suite before proposing a commit.
+- Prefer small, incremental diffs over large rewrites.
+
+## Communication style
+Give a direct recommendation, not a menu of options, unless I ask
+for tradeoffs.
+
+## Common commands
+- Lint: \`pnpm lint\`
+- Tests: \`pnpm test\`
+
+## Debugging habits
+Always reproduce the failure first. Don't propose a fix before you
+can reliably trigger the bug.`,
+        },
       ],
     },
     {

@@ -19,7 +19,14 @@ export const module03: CourseModule = {
       body: [
         "'Add authentication' and 'add an email/password login form that posts to /api/login and redirects to /dashboard on success' are the same goal at two different altitudes — and the second one gets a correct first attempt far more often. Scoping isn't about micromanaging every line; it's about giving the agent a boundary it can't accidentally wander outside of.",
         "A reliable technique for large work: ask for a plan before any edits happen, review the proposed steps, then approve or adjust the plan, then let execution proceed step by step. This front-loads your highest-leverage moment of control to when it's cheapest — before any code exists.",
-        "Watch for tasks that are secretly two or three tasks. 'Fix the bug and clean up the file while you're in there' is a common source of scope creep and larger, harder-to-review diffs than necessary — it's usually better as two explicit requests.",
+        "Watch for tasks that are secretly two or three tasks. 'Fix the bug and clean up the file while you're in there' is a common source of scope creep and larger, harder-to-review diffs than necessary — it's usually better as two explicit requests. Side by side, the difference in a real prompt is stark:",
+      ],
+      examples: [
+        { label: "Vague", code: "Add authentication" },
+        {
+          label: "Scoped",
+          code: "Add an email/password login form that posts to /api/login and redirects to /dashboard on success. Use the existing form styling in src/components/ui/. Don't touch the signup flow.",
+        },
       ],
     },
     {
@@ -41,7 +48,19 @@ export const module03: CourseModule = {
     {
       heading: "Iterating on failed attempts productively",
       body: [
-        "A failed first attempt is information, not a dead end. The productive move is rarely 'try again' — it's naming specifically what's wrong: which behavior was incorrect, what you expected instead, and if you know it, why. That turns a retry into a correction instead of a repeat of the same guess.",
+        "A failed first attempt is information, not a dead end. The productive move is rarely 'try again' — it's naming specifically what's wrong: which behavior was incorrect, what you expected instead, and if you know it, why. That turns a retry into a correction instead of a repeat of the same guess:",
+      ],
+      examples: [
+        { label: "Vague retry", code: "Try again" },
+        {
+          label: "Specific correction",
+          code: "This works, but it duplicates the date-formatting logic already in src/lib/format.ts — reuse formatDate from there instead of reimplementing it.",
+        },
+      ],
+    },
+    {
+      heading: "Changing strategy, not just retrying",
+      body: [
         "When an attempt fails repeatedly on the same issue, that's a signal to change strategy rather than keep nudging: provide the missing context you've been withholding, narrow the scope further, or step in and investigate one layer yourself before handing it back.",
         "It's worth explicitly telling Claude when a previous approach is now off the table ('don't try adding a new dependency for this — we've decided against it') so it doesn't retread the same rejected path in a different form.",
       ],

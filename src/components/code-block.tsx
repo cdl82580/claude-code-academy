@@ -6,7 +6,7 @@ export function CodeBlock({ label, code }: CodeExample) {
       <div className="border-b border-border bg-muted px-3 py-1.5 font-mono text-xs text-muted-foreground">
         {label}
       </div>
-      <pre className="overflow-x-auto bg-card p-3 text-xs leading-relaxed">
+      <pre className="overflow-x-auto whitespace-pre-wrap break-words bg-card p-3 text-xs leading-relaxed">
         <code className="font-mono">{code}</code>
       </pre>
     </div>
