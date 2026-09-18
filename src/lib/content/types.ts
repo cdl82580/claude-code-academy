@@ -23,6 +23,11 @@ export type Practicum = {
   checks: CheckRule[];
 };
 
+export type CodeExample = {
+  label: string;
+  code: string;
+};
+
 export type CourseModule = {
   slug: string;
   order: number;
@@ -30,7 +35,7 @@ export type CourseModule = {
   title: string;
   summary: string;
   objectives: string[];
-  lessonSections: { heading: string; body: string[] }[];
+  lessonSections: { heading: string; body: string[]; examples?: CodeExample[] }[];
   quiz: QuizQuestion[];
   passThreshold: number;
   practicum: Practicum;

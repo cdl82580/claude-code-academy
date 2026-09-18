@@ -20,6 +20,34 @@ export const module04: CourseModule = {
         "Slash commands are shortcuts for prompts you'd otherwise type out repeatedly — a saved, reusable instruction you invoke with a short name instead of re-explaining it every time. If you find yourself typing a similar multi-sentence instruction across sessions ('review this diff for security issues and check for missing error handling'), that's a candidate for a slash command.",
         "Good candidates for custom commands are repeatable, well-defined workflows: a project-specific release checklist, a standard code-review pass, a way of generating a status update from recent activity. The payoff compounds the more often you'd otherwise retype the same instruction.",
         "Treat your set of custom commands as living tooling, the same way you'd treat scripts in a package.json — prune ones you stop using, and promote a prompt to a command as soon as you've typed it out for the third time.",
+        "Concretely, a slash command is a Markdown file: one at `.claude/commands/<name>.md` in a project (shared with the team, since it's committed), or at `~/.claude/commands/<name>.md` for a personal one that follows you across projects. The filename becomes the command name, and the file's contents are the prompt that gets sent when you type it — for example, this file makes `/review` available in any session:",
+      ],
+      examples: [
+        {
+          label: ".claude/commands/review.md",
+          code: `Review the current diff for:
+- Security issues (injection, missing auth checks, secrets)
+- Missing error handling
+- Missing test coverage
+
+List findings as bullets, most severe first.`,
+        },
+      ],
+    },
+    {
+      heading: "Passing arguments to a command",
+      body: [
+        "A command can take arguments with the `$ARGUMENTS` placeholder, which gets replaced with whatever you type after the command name. Typing `/fix-issue 142` runs the file below with `$ARGUMENTS` replaced by `142`:",
+      ],
+      examples: [
+        {
+          label: ".claude/commands/fix-issue.md",
+          code: `Fix issue $ARGUMENTS:
+1. Read the issue description and reproduce the problem
+2. Find the relevant code
+3. Implement a fix
+4. Add a regression test that would have caught this bug`,
+        },
       ],
     },
     {
@@ -36,6 +64,24 @@ export const module04: CourseModule = {
         "Hooks let you run your own commands automatically at specific points in Claude Code's workflow — for example, before a tool call, after a session ends, or when specific events occur. This is how you enforce something every time without relying on remembering to ask for it: running a linter after every file edit, or logging every command that gets executed.",
         "Hooks are a good fit for guardrails and consistency, not for creative work — use them for the mechanical, always-do-this rules (formatting, logging, notifications) and leave judgment calls to the conversation itself.",
         "Because hooks run automatically and can execute arbitrary commands, write them defensively: fail loudly rather than silently, and avoid a hook that could itself take a destructive action without a human in the loop.",
+        "Hooks are configured in `.claude/settings.json`, under a `hooks` key. Each entry is keyed by event name (like `PostToolUse`), matches specific tools with a `matcher` pattern, and runs a real shell command — this example runs a formatter after every file edit or write, automatically. Hook configuration is one of the areas most likely to have changed since this was written, so confirm the exact event names and JSON shape against `claude --help` or Anthropic's current documentation before relying on the field names below.",
+      ],
+      examples: [
+        {
+          label: ".claude/settings.json",
+          code: `{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          { "type": "command", "command": "npx prettier --write ." }
+        ]
+      }
+    ]
+  }
+}`,
+        },
       ],
     },
     {

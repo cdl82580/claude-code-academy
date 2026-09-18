@@ -65,6 +65,13 @@ npx tsc --noEmit # standalone typecheck — only accurate right after a `next bu
   (keep `package-lock.json`), then drop the zip in `public/starters/` and add an entry to
   `starters.ts`. Never hand-edit a zip in place — rebuild it from source so the working copy and
   the shipped archive can't drift.
+- `lessonSections[].examples?: CodeExample[]` (`src/lib/content/types.ts`) — optional real code
+  blocks (a filename `label` + literal `code`) rendered by `src/components/code-block.tsx` after
+  a section's prose. Used for things like exact slash-command files and hook config, where prose
+  alone was too vague to actually act on (see Module 4). Examples render after all of a section's
+  `body` paragraphs, not interleaved — if you need prose after a code block, split into a second
+  section rather than reordering the array (an empty `heading` renders a visible blank `<h2>`,
+  so give every section a real one).
 
 ## Gotchas learned while building this
 

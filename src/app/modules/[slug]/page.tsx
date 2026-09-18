@@ -9,6 +9,7 @@ import { QuizForm } from "@/components/quiz-form";
 import { PracticumForm } from "@/components/practicum-form";
 import { StarterProjects } from "@/components/starter-projects";
 import { PermissionsTip } from "@/components/permissions-tip";
+import { CodeBlock } from "@/components/code-block";
 import { createClient } from "@/lib/supabase/server";
 import { courseModules, getModuleBySlug, getNextModule } from "@/lib/content/modules";
 import { getProgressMap } from "@/lib/progress";
@@ -98,6 +99,7 @@ export default async function ModulePage({
                       {p}
                     </p>
                   ))}
+                  {section.examples?.map((ex, j) => <CodeBlock key={j} {...ex} />)}
                 </section>
               ))}
 
