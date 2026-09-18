@@ -148,6 +148,9 @@ app works identically without it, just without that one button.
 2. Add it to `.env.local` as `ANTHROPIC_API_KEY`, and to Vercel's Production env vars for the
    deployed site. Nothing else to configure — the "Get AI feedback" button appears automatically
    once the key is present, on both local dev and production, independently.
+   **Adding a Vercel env var does not redeploy anything by itself** — the currently-live
+   deployment was already built without it baked in. Trigger a new deploy (push a commit, or use
+   Vercel's "Redeploy" on the latest deployment) before expecting the button to appear live.
 3. This calls the real Anthropic API and costs real (small) money per click — there's no
    rate-limiting on it yet. If usage ever needs capping, that's the place to add it
    (`requestPracticumFeedback` in `src/app/modules/actions.ts`).
