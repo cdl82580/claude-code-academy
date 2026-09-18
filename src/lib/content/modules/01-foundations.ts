@@ -25,9 +25,11 @@ export const module01: CourseModule = {
     {
       heading: "Installing and authenticating",
       body: [
-        "Claude Code installs as a CLI tool via your package manager of choice (npm, or a native installer depending on platform). Once installed, running it for the first time walks you through authentication — connecting it to your Anthropic account or your organization's Claude access — after which it remembers your session for future runs in that environment.",
-        "After installing, navigate to any project directory in your terminal and start a session. Claude Code will orient itself: it can see the files in that directory and its subdirectories, but it won't read or change anything until you ask it to, or until it decides a step requires it — for example, reading a file to answer your question.",
+        "Prerequisites: a terminal (Terminal or iTerm on macOS, any shell on Linux, or WSL — Windows Subsystem for Linux — on Windows), Node.js 18 or newer with npm (check what you have with `node --version`; install from nodejs.org if you're below that), and an account that includes Claude Code access — either a Claude.ai subscription (Pro or Max) or an Anthropic Console account with API billing enabled, depending on how you or your organization set things up.",
+        "Install: run `npm install -g @anthropic-ai/claude-code` to install the CLI globally, then run `claude --version` to confirm it installed correctly. If the command isn't found afterward, the most common cause is that npm's global bin directory isn't on your PATH yet.",
+        "First run: `cd` into any project directory and run `claude` to start a session. The first run opens a browser window so you can log in with the account tied to your Claude Code access — after that, the CLI remembers your session for future runs on this machine.",
         "First-run checklist: confirm the CLI is on your PATH, confirm authentication succeeded, and try a trivial first prompt (like asking it to summarize the project's README) to confirm it can see your files before you trust it with real work.",
+        "Installation details occasionally change as the tool evolves. If any command here doesn't match what you see, trust `claude --help` and Anthropic's current documentation over this page.",
       ],
     },
     {
