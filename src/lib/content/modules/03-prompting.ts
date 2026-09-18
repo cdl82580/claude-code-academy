@@ -153,7 +153,7 @@ export const module03: CourseModule = {
       {
         id: "has-vague-and-scoped",
         description: "Includes both a vague version and a scoped rewrite",
-        type: "includesAny",
+        type: "includesAll",
         value: ["vague", "scoped"],
       },
       {

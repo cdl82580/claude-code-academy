@@ -183,7 +183,7 @@ Flag anything uncertain rather than assuming it's fine.`,
         id: "has-ci-scoping",
         description: "Describes CI permission scoping",
         type: "includesAny",
-        value: ["ci", "permission", "unattended", "least privilege"],
+        value: ["ci/cd", "ci run", "unattended", "permission", "least privilege"],
       },
       {
         id: "sufficient-detail",

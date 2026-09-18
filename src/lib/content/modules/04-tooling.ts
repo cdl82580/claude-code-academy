@@ -180,7 +180,7 @@ List findings as bullets, most severe first.`,
         id: "has-command",
         description: "Describes a custom slash command name and purpose",
         type: "includesAny",
-        value: ["command", "/", "slash"],
+        value: ["command", "slash"],
       },
       {
         id: "has-hook-or-mcp",

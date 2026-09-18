@@ -138,14 +138,20 @@ export const module01: CourseModule = {
       {
         id: "mentions-summary",
         description: "Includes evidence of a file being read/summarized",
-        type: "minLength",
-        value: 80,
+        type: "includesAny",
+        value: ["summary", "summarize", "read", "file", "exports", "component"],
       },
       {
         id: "mentions-command",
         description: "Mentions a command that was run (e.g. test, ls, git, npm, build)",
         type: "includesAny",
         value: ["test", "ls", "git", "npm", "build", "run", "yarn", "pnpm"],
+      },
+      {
+        id: "sufficient-detail",
+        description: "Overall submission has enough detail",
+        type: "minLength",
+        value: 80,
       },
       {
         id: "mentions-edit",

@@ -164,6 +164,12 @@ Next.js App Router app. Pages live in \`src/app\`, shared UI in
       {
         id: "review-note",
         description: "Includes a review note about the diff you checked",
+        type: "includesAny",
+        value: ["review", "diff", "accept", "reject", "redirect", "checked"],
+      },
+      {
+        id: "sufficient-detail",
+        description: "Overall submission has enough detail",
         type: "minLength",
         value: 100,
       },

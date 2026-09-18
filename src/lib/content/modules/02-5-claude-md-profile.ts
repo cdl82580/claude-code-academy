@@ -173,6 +173,12 @@ can reliably trigger the bug.`,
         type: "includesAny",
         value: ["project a", "project b", "both projects", "two projects", "toy project"],
       },
+      {
+        id: "sufficient-detail",
+        description: "Overall submission has enough detail for a full profile plus observations",
+        type: "minLength",
+        value: 200,
+      },
     ],
   },
 };

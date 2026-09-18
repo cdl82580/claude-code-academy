@@ -170,6 +170,12 @@ curl localhost:3000/notes
         type: "includesAny",
         value: ["fix"],
       },
+      {
+        id: "sufficient-detail",
+        description: "Overall submission has enough detail across all three steps",
+        type: "minLength",
+        value: 150,
+      },
     ],
   },
 };
