@@ -174,16 +174,28 @@ Flag anything uncertain rather than assuming it's fine.`,
       "Review checklist:\n1. Security: ...\n2. Error handling: ...\n3. Test coverage: ...\n\nCI permission scoping: for CI runs, I would restrict...\n\nHandling findings: automated findings get logged and triaged by...",
     checks: [
       {
-        id: "has-checklist-categories",
-        description: "Checklist mentions security, error handling, and tests",
-        type: "includesAll",
-        value: ["security", "error", "test"],
+        id: "has-security-category",
+        description: "Checklist mentions security",
+        type: "includesAny",
+        value: ["security", "injection", "auth"],
+      },
+      {
+        id: "has-error-category",
+        description: "Checklist mentions error handling",
+        type: "includesAny",
+        value: ["error", "exception", "handling"],
+      },
+      {
+        id: "has-test-category",
+        description: "Checklist mentions test coverage",
+        type: "includesAny",
+        value: ["test", "coverage"],
       },
       {
         id: "has-ci-scoping",
         description: "Describes CI permission scoping",
         type: "includesAny",
-        value: ["ci/cd", "ci run", "unattended", "permission", "least privilege"],
+        value: ["ci/cd", "ci run", "unattended", "permission", "least privilege", "pipeline", "non-interactive"],
       },
       {
         id: "sufficient-detail",

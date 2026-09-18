@@ -13,6 +13,7 @@ import { CodeBlock } from "@/components/code-block";
 import { createClient } from "@/lib/supabase/server";
 import { courseModules, getModuleBySlug, getNextModule } from "@/lib/content/modules";
 import { getProgressMap } from "@/lib/progress";
+import { isAiFeedbackConfigured } from "@/lib/ai/practicum-feedback";
 
 export function generateStaticParams() {
   return courseModules.map((m) => ({ slug: m.slug }));
@@ -137,6 +138,7 @@ export default async function ModulePage({
                 initialSubmission={row?.practicum_submission}
                 initialChecks={row?.practicum_checks}
                 initialVerified={row?.practicum_verified}
+                aiFeedbackEnabled={isAiFeedbackConfigured()}
               />
             </TabsContent>
           </Tabs>

@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { getModuleBySlug } from "@/lib/content/modules";
 import { runChecks, allChecksPassed, type CheckResult } from "@/lib/content/validation";
+import { getPracticumFeedback } from "@/lib/ai/practicum-feedback";
 
 export type QuizResult = {
   score: number;
@@ -111,4 +112,25 @@ export async function submitPracticum(
   revalidatePath("/dashboard");
 
   return { results, verified };
+}
+
+export async function requestPracticumFeedback(
+  moduleSlug: string,
+  submissionText: string,
+): Promise<{ feedback: string }> {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) throw new Error("Not authenticated");
+
+  if (!submissionText.trim()) {
+    throw new Error("Write something first.");
+  }
+
+  const courseModule = getModuleBySlug(moduleSlug);
+  if (!courseModule) throw new Error("Unknown module");
+
+  const feedback = await getPracticumFeedback(courseModule, submissionText);
+  return { feedback };
 }

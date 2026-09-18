@@ -156,19 +156,19 @@ curl localhost:3000/notes
         id: "has-reproduce",
         description: "Includes a reproduce step",
         type: "includesAny",
-        value: ["reproduce"],
+        value: ["reproduce", "repro", "trigger", "recreate"],
       },
       {
         id: "has-isolate",
         description: "Includes an isolate step",
         type: "includesAny",
-        value: ["isolate"],
+        value: ["isolate", "narrow", "root cause", "located", "pinpoint"],
       },
       {
         id: "has-fix",
         description: "Includes a fix step",
         type: "includesAny",
-        value: ["fix"],
+        value: ["fix", "resolved", "solved", "patch", "corrected"],
       },
       {
         id: "sufficient-detail",

@@ -153,19 +153,19 @@ Next.js App Router app. Pages live in \`src/app\`, shared UI in
         id: "has-commands-section",
         description: "Mentions commands (build, test, lint, run, etc.)",
         type: "includesAny",
-        value: ["command", "build", "test", "lint", "npm", "yarn"],
+        value: ["command", "build", "test", "lint", "npm", "yarn", "pnpm", "script", "make "],
       },
       {
         id: "has-architecture-or-convention",
         description: "Mentions architecture or a convention",
         type: "includesAny",
-        value: ["architecture", "convention", "structure", "pattern"],
+        value: ["architecture", "convention", "structure", "pattern", "design", "layout", "organization", "style guide"],
       },
       {
         id: "review-note",
         description: "Includes a review note about the diff you checked",
         type: "includesAny",
-        value: ["review", "diff", "accept", "reject", "redirect", "checked"],
+        value: ["review", "diff", "accept", "reject", "redirect", "checked", "verified", "confirmed", "looked at"],
       },
       {
         id: "sufficient-detail",

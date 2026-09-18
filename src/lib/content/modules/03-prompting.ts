@@ -151,16 +151,22 @@ export const module03: CourseModule = {
       "Vague: make the API better\nScoped: ...\nFeedback given: ...\nResult after feedback: ...",
     checks: [
       {
-        id: "has-vague-and-scoped",
-        description: "Includes both a vague version and a scoped rewrite",
-        type: "includesAll",
-        value: ["vague", "scoped"],
+        id: "has-vague",
+        description: "Includes a vague version of the task",
+        type: "includesAny",
+        value: ["vague", "unclear", "ambiguous", "open-ended", "too broad", "under-specified"],
+      },
+      {
+        id: "has-scoped",
+        description: "Includes a scoped rewrite of the task",
+        type: "includesAny",
+        value: ["scoped", "specific", "well-defined", "concrete", "bounded", "narrowed"],
       },
       {
         id: "has-feedback",
         description: "Describes specific feedback given after a first attempt",
         type: "includesAny",
-        value: ["feedback", "instead", "expected", "corrected"],
+        value: ["feedback", "instead", "expected", "corrected", "revise", "should be", "changed to"],
       },
       {
         id: "sufficient-detail",

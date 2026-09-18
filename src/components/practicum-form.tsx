@@ -1,13 +1,13 @@
 "use client";
 
 import { useState, useTransition } from "react";
-import { CheckCircle2, XCircle, ListChecks } from "lucide-react";
+import { CheckCircle2, XCircle, ListChecks, Sparkles } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import type { Practicum } from "@/lib/content/types";
 import type { CheckResult } from "@/lib/content/validation";
-import { submitPracticum } from "@/app/modules/actions";
+import { submitPracticum, requestPracticumFeedback } from "@/app/modules/actions";
 
 export function PracticumForm({
   moduleSlug,
@@ -15,17 +15,22 @@ export function PracticumForm({
   initialSubmission,
   initialChecks,
   initialVerified,
+  aiFeedbackEnabled,
 }: {
   moduleSlug: string;
   practicum: Practicum;
   initialSubmission?: string | null;
   initialChecks?: CheckResult[] | null;
   initialVerified?: boolean;
+  aiFeedbackEnabled?: boolean;
 }) {
   const [text, setText] = useState(initialSubmission ?? "");
   const [checks, setChecks] = useState<CheckResult[] | null>(initialChecks ?? null);
   const [verified, setVerified] = useState(Boolean(initialVerified));
   const [isPending, startTransition] = useTransition();
+
+  const [aiFeedback, setAiFeedback] = useState<string | null>(null);
+  const [isFeedbackPending, startFeedbackTransition] = useTransition();
 
   function handleSubmit() {
     startTransition(async () => {
@@ -40,6 +45,17 @@ export function PracticumForm({
         }
       } catch {
         toast.error("Something went wrong submitting your practicum. Try again.");
+      }
+    });
+  }
+
+  function handleGetFeedback() {
+    startFeedbackTransition(async () => {
+      try {
+        const res = await requestPracticumFeedback(moduleSlug, text);
+        setAiFeedback(res.feedback);
+      } catch (err) {
+        toast.error(err instanceof Error ? err.message : "Could not get AI feedback right now.");
       }
     });
   }
@@ -71,9 +87,22 @@ export function PracticumForm({
         />
       </div>
 
-      <Button onClick={handleSubmit} disabled={text.trim().length === 0 || isPending} size="lg">
-        {isPending ? "Checking…" : "Submit practicum"}
-      </Button>
+      <div className="flex flex-wrap gap-3">
+        <Button onClick={handleSubmit} disabled={text.trim().length === 0 || isPending} size="lg">
+          {isPending ? "Checking…" : "Submit practicum"}
+        </Button>
+        {aiFeedbackEnabled ? (
+          <Button
+            onClick={handleGetFeedback}
+            disabled={text.trim().length === 0 || isFeedbackPending}
+            variant="outline"
+            size="lg"
+          >
+            <Sparkles className="size-4" />
+            {isFeedbackPending ? "Thinking…" : "Get AI feedback"}
+          </Button>
+        ) : null}
+      </div>
 
       {checks ? (
         <div
@@ -97,6 +126,18 @@ export function PracticumForm({
               </li>
             ))}
           </ul>
+        </div>
+      ) : null}
+
+      {aiFeedback ? (
+        <div className="space-y-1.5 rounded-lg border border-accent bg-accent/40 px-4 py-3">
+          <p className="flex items-center gap-1.5 text-sm font-semibold text-accent-foreground">
+            <Sparkles className="size-4" /> AI feedback
+          </p>
+          <p className="text-sm text-accent-foreground/90">{aiFeedback}</p>
+          <p className="pt-1 text-xs text-muted-foreground">
+            Coaching only — this doesn&apos;t affect verification above.
+          </p>
         </div>
       ) : null}
     </div>

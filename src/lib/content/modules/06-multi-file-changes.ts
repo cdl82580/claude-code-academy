@@ -145,13 +145,13 @@ export const module06: CourseModule = {
         id: "has-affected-locations",
         description: "Lists affected locations found before editing",
         type: "includesAny",
-        value: ["affected", "found", "location", "files"],
+        value: ["affected", "found", "location", "files", "touched", "impacted", "search"],
       },
       {
         id: "has-chunking",
         description: "Describes breaking the work into chunks",
         type: "includesAny",
-        value: ["chunk", "phase", "step 1", "part 1"],
+        value: ["chunk", "phase", "step 1", "part 1", "batch", "group", "stage 1", "increment"],
       },
       {
         id: "sufficient-detail",
