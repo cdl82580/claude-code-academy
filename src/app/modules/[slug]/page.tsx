@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QuizForm } from "@/components/quiz-form";
 import { PracticumForm } from "@/components/practicum-form";
 import { StarterProjects } from "@/components/starter-projects";
+import { PermissionsTip } from "@/components/permissions-tip";
 import { createClient } from "@/lib/supabase/server";
 import { courseModules, getModuleBySlug, getNextModule } from "@/lib/content/modules";
 import { getProgressMap } from "@/lib/progress";
@@ -126,6 +127,7 @@ export default async function ModulePage({
                 <h2 className="font-heading text-xl font-semibold">{courseModule.practicum.title}</h2>
                 <p className="mt-1 text-muted-foreground">{courseModule.practicum.scenario}</p>
               </div>
+              <PermissionsTip />
               <StarterProjects />
               <PracticumForm
                 moduleSlug={slug}
