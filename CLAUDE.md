@@ -56,6 +56,15 @@ npx tsc --noEmit # standalone typecheck — only accurate right after a `next bu
   request rather than storing the binary — simplest correct approach, no storage bucket needed.
 - Auth pages (`src/app/(auth)/...`) use **Server Actions** (`src/app/(auth)/actions.ts`), not
   client-side Supabase calls, so cookies get set correctly during sign-in/sign-up/OAuth.
+- `public/starters/*.zip` — downloadable practice projects a learner can point Claude Code at for
+  a practicum instead of hunting for their own repo. Listed in `src/lib/content/starters.ts` and
+  rendered by `src/components/starter-projects.tsx` on every module's Practicum tab (not
+  per-module — which starter fits depends on the exercise, not the module, see each starter's
+  `goodFor` field). **To add or update a starter**: build it in a scratch dir, `npm install` +
+  actually run its tests/server there to confirm it works, strip `node_modules` before zipping
+  (keep `package-lock.json`), then drop the zip in `public/starters/` and add an entry to
+  `starters.ts`. Never hand-edit a zip in place — rebuild it from source so the working copy and
+  the shipped archive can't drift.
 
 ## Gotchas learned while building this
 

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { QuizForm } from "@/components/quiz-form";
 import { PracticumForm } from "@/components/practicum-form";
+import { StarterProjects } from "@/components/starter-projects";
 import { createClient } from "@/lib/supabase/server";
 import { courseModules, getModuleBySlug, getNextModule } from "@/lib/content/modules";
 import { getProgressMap } from "@/lib/progress";
@@ -120,11 +121,12 @@ export default async function ModulePage({
               />
             </TabsContent>
 
-            <TabsContent value="practicum" className="pt-6">
-              <div className="mb-4">
+            <TabsContent value="practicum" className="space-y-6 pt-6">
+              <div>
                 <h2 className="font-heading text-xl font-semibold">{courseModule.practicum.title}</h2>
                 <p className="mt-1 text-muted-foreground">{courseModule.practicum.scenario}</p>
               </div>
+              <StarterProjects />
               <PracticumForm
                 moduleSlug={slug}
                 practicum={courseModule.practicum}
